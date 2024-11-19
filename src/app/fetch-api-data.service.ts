@@ -9,7 +9,7 @@ const apiUrl = 'https://wood-movies-flix-0f8372d87a02.herokuapp.com/';
   providedIn: 'root'
 })
 
-export class FetchApiDataService {
+export class UserRegistrationService {
   constructor(private http: HttpClient) {
   }
 
