@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/my-flix-angular-client",
             "index": "src/index.html",
@@ -53,9 +53,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "vendorChunk": true,
+              "extractLicense": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -64,16 +67,19 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "myFlix-Angular-client:build:production"
+              "browserTarget": "myFlix-Angular-client:build:production"
             },
             "development": {
-              "buildTarget": "myFlix-Angular-client:build:development"
+              "browserTarget": "myFlix-Angular-client:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "myFlix-Angular-client:build:development"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
