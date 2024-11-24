@@ -71,18 +71,26 @@ export class UserRegistrationService {
       );
   }
 
-  getUser(): any {
-    const user: any = JSON.parse(localStorage.getItem('user')|| "");
-    return {
-      user
-    }
+  getUser(Username: String): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
+      {
+        Authorization: 'Bearer ' + token,
+      })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
   }
 
-  getUserFavoriteMovies(): any {
-    const user: any = JSON.parse(localStorage.getItem('user')|| "");
-    return {
-      user: user.favoriteMovies
-    }
+  getUserFavoriteMovies(Username: String): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(apiUrl + 'users/' + Username + '/movies', {headers: new HttpHeaders(
+      {
+        Authorization: 'Bearer ' + token,
+      })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
   }
 
   addFavoriteMovie(Username: String, MovieID: String): Observable<any> {
