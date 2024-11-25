@@ -32,7 +32,6 @@ export class UserProfileComponent implements OnInit {
         token: this.userData.token
       };
       localStorage.setItem("user", JSON.stringify(this.userData));
-      console.log(this.userData);
     });
   }
 
@@ -48,7 +47,6 @@ export class UserProfileComponent implements OnInit {
         token: this.userData.token
       };
       localStorage.setItem("user", JSON.stringify(this.userData))
-      console.log(this.userData);
     });
   }
 
