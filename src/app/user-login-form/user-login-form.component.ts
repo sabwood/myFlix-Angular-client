@@ -37,7 +37,8 @@ export class UserLoginFormComponent implements OnInit {
         Password: this.userData.Password,
         token: response.token
       }
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(response.user));
+      localStorage.setItem("token", response.token);
       this.router.navigate(['movies']);
     }, (response) => {
       this.snackBar.open(response, 'OK', {
