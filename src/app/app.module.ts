@@ -43,6 +43,7 @@ const appRoutes: Routes = [
         MovieDescriptionInfoComponent
     ],
     imports: [
+        AppRoutingModule,
         RouterModule.forRoot(appRoutes),
         BrowserModule,
         HttpClientModule,
