@@ -16,6 +16,7 @@ export class MovieCardComponent implements OnInit {
   movie: any = {};
   FavoriteMovies: any[] = [];
   userData: any = {};
+
   constructor(
     public fetchApiData: UserRegistrationService,
     public dialog: MatDialog,
@@ -32,34 +33,34 @@ export class MovieCardComponent implements OnInit {
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
-      console.log(this.movies);
       return this.movies;
     });
   }
 
-  modifyFavoriteMovies(movie: any): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const Username = user.Username;
+  addFavoriteMovie(movie: any): void {
+    const Username = this.userData.Username;
+    this.fetchApiData.addFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
+      this.userData.FavoriteMovies = this.userData.FavoriteMovies.filter(
+        (id: string) =>  id !== movie._id
+      );
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      this.getMovies();
+    }, (err: any) => {
+      console.error(err);
+    });
+  }
 
-    if (!user.FavoriteMovies) {
-      user.FavoriteMovies = [];
-    }
-
-    if (this.isFavorite(movie)) {
-      this.fetchApiData.deleteFavoriteMovie(Username, movie._id).subscribe(() => {
-        user.FavoriteMovies = user.FavoriteMovies.filter(
-          (id: string) => id !== movie._id
-        );
-        localStorage.setItem('user', JSON.stringify(user));
-        this.getMovies();
-      });
-    } else {
-      this.fetchApiData.addFavoriteMovie(Username, movie._id).subscribe(() => {
-        user.FavoriteMovies.push(movie._id);
-        localStorage.setItem('user', JSON.stringify(user));
-        this.getMovies();
-      });
-    }
+  removeFavoriteMovie(movie: any): void {
+    const Username = this.userData.Username;
+    this.fetchApiData.deleteFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
+      this.userData.FavoriteMovies = this.userData.FavoriteMovies.filter(
+        (id: string) => id !== movie._id
+      );
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      this.getMovies();
+    }, (err: any) => {
+      console.error(err);
+    });
   }
 
   isFavorite(movie: any): boolean {

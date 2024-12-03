@@ -49,7 +49,6 @@ export class UserRegistrationService {
 
   getMovieDirector(directorName: String): Observable<any> {
     const token = localStorage.getItem('token');
-    console.log(token);
     return this.http.get(apiUrl + 'movies/directors/' + directorName, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
@@ -83,7 +82,7 @@ export class UserRegistrationService {
 
   addFavoriteMovie(Username: String, MovieID: String): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + 'users/' + Username + '/movies/' + MovieID, {headers: new HttpHeaders(
+    return this.http.post(apiUrl + 'users/' + Username + '/movies/' + MovieID, null, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(

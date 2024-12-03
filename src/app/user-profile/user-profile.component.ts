@@ -14,18 +14,21 @@ import { MovieGenreInfoComponent } from '../movie-genre-info/movie-genre-info.co
 export class UserProfileComponent implements OnInit {
   userData: any = {};
   FavoriteMovies: any[] = [];
+  movies: any[] = [];
+  movie: any = {};
 
   constructor(
     public fetchApiData: UserRegistrationService,
     public router: Router,
     public dialog: MatDialog
   ) {
+    this.movie._id = document.getElementById(`${this.movie._id}`),
     this.userData = JSON.parse(localStorage.getItem("user") || "")
   }
 
   ngOnInit(): void {
     this.getUser();
-    this.getUserFavoriteMovies();    
+    this.getFavoriteMovies();
   }
 
   getUser(): void {
@@ -37,9 +40,11 @@ export class UserProfileComponent implements OnInit {
         Password: this.userData.Password,
         Email: this.userData.Email,
         Birthday: this.userData.Birthday,
+        FavoriteMovies: this.userData.FavoriteMovies,
         token: this.userData.token
       };
       localStorage.setItem("user", JSON.stringify(this.userData));
+      console.log(this.userData);
     });
   }
 
@@ -59,25 +64,56 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  getUserFavoriteMovies(): void {
-    this.fetchApiData.getUser(this.userData.FavoriteMovies).subscribe((resp: any) => {
-      this.userData = {
-        ...resp,
-        id: resp._id,
-        Username: this.userData.Username,
-        Password: this.userData.Password,
-        Email: this.userData.Email,
-        Birthday: this.userData.Birthday,
-        FavoriteMovies: this.userData.FavoriteMovies,
-        token: this.userData.token
-      };
-      return this.userData.FavoriteMovies;
-    })
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      return this.movies;
+    });
   }
 
-  isFavoriteMovie(MovieID: string): boolean {
+  getFavoriteMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.FavoriteMovies = resp.filter((movie: any) => {
+        return this.userData.FavoriteMovies.includes(movie._id);
+      });
+    }, (err: any) => {
+      console.error(err);
+      return this.FavoriteMovies;
+    });
+  }
+
+  addFavoriteMovie(movie: any): void {
+    const Username = this.userData.Username;
+    this.fetchApiData.addFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
+      this.userData.FavoriteMovies = this.userData.FavoriteMovies.filter(
+        (id: string) =>  id !== movie._id
+      );
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      this.getFavoriteMovies();
+    }, (err: any) => {
+      console.error(err);
+    });
+  }
+
+  removeFavoriteMovie(movie: any): void {
+    const Username = this.userData.Username;
+    this.fetchApiData.deleteFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
+      this.userData.FavoriteMovies = this.userData.FavoriteMovies.filter(
+        (id: string) => id !== movie._id
+      );
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      this.getFavoriteMovies();
+    }, (err: any) => {
+      console.error(err);
+    });
+  }
+
+  isFavorite(movie: any): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.FavoriteMovies.indexOf(MovieID) >= 0;
+    return (
+      Array.isArray(user.FavoriteMovies) &&
+      user.FavoriteMovies.includes(movie._id)
+    );
   }
 
   openDirectorDialog(Name: string, Bio: string, Birth: string): void {
