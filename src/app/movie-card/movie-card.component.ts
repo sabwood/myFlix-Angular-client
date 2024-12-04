@@ -56,7 +56,7 @@ export class MovieCardComponent implements OnInit {
       this.userData.FavoriteMovies = this.userData.FavoriteMovies.filter(
         (id: string) => id !== movie._id
       );
-      localStorage.setItem('user', JSON.stringify(this.userData));
+      localStorage.setItem('user', JSON.stringify(resp));
       this.getMovies();
     }, (err: any) => {
       console.error(err);
