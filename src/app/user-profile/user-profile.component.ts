@@ -60,7 +60,7 @@ export class UserProfileComponent implements OnInit {
         FavoriteMovies: this.userData.FavoriteMovies,
         token: this.userData.token
       };
-      localStorage.setItem("user", JSON.stringify(this.userData))
+      localStorage.setItem("user", JSON.stringify(resp))
     });
   }
 
