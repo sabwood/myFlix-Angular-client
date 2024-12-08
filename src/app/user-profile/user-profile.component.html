@@ -19,17 +19,36 @@
             <form>
                 <mat-label>Username</mat-label>
                 <mat-form-field>
-                    <input matInput [(ngModel)]="userData.Username" placeholder="Username" name="Username" type="text" />
+                    <input
+                        matInput
+                        [(ngModel)]="userFormValues.Username"
+                        placeholder="Username"
+                        name="Username"
+                        type="text"
+                        required
+                    />
                 </mat-form-field>
                 <br>
                 <mat-label>Email</mat-label>
                 <mat-form-field>
-                    <input matInput [(ngModel)]="userData.Email" placeholder="Email" name="Email" type="email" />
+                    <input
+                        matInput
+                        [(ngModel)]="userFormValues.Email"
+                        placeholder="Email"
+                        name="Email"
+                        type="email"
+                    />
                 </mat-form-field>
                 <br>
                 <mat-label>Birthday</mat-label>
                 <mat-form-field>
-                    <input matInput [(ngModel)]="userData.Birthday" placeholder="Birthday" name="Birthday" type="date" />
+                    <input
+                        matInput
+                        [(ngModel)]="userFormValues.Birthday"
+                        placeholder="Birthday"
+                        name="Birthday"
+                        type="date"
+                    />
                 </mat-form-field>
             </form>
             <mat-card-actions>

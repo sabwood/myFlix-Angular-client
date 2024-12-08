@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UserRegistrationService } from '../fetch-api-data.service';
@@ -12,6 +12,8 @@ import { MovieGenreInfoComponent } from '../movie-genre-info/movie-genre-info.co
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+
+  @Input() userFormValues = { Username: "", Email: "", Birthday: ""};
   userData: any = {};
   FavoriteMovies: any[] = [];
   movies: any[] = [];
@@ -44,23 +46,20 @@ export class UserProfileComponent implements OnInit {
         token: this.userData.token
       };
       localStorage.setItem("user", JSON.stringify(this.userData));
-      console.log(this.userData);
     });
   }
 
   editUser(): void {
-    this.fetchApiData.editUser(this.userData.Username, this.userData).subscribe((resp: any) => {
-      this.userData = {
+    this.fetchApiData.editUser(this.userData.Username, this.userFormValues).subscribe((resp: any) => {
+      this.userFormValues = {
         ...resp,
-        id: resp._id,
-        Username: this.userData.Username,
-        Password: this.userData.Password,
-        Email: this.userData.Email,
-        Birthday: this.userData.Birthday,
-        FavoriteMovies: this.userData.FavoriteMovies,
+        Username: this.userFormValues.Username,
+        Email: this.userFormValues.Email,
+        Birthday: this.userFormValues.Birthday,
         token: this.userData.token
       };
-      localStorage.setItem("user", JSON.stringify(resp))
+      localStorage.setItem("user", JSON.stringify(resp));
+      console.log(this.userFormValues);
     });
   }
 
