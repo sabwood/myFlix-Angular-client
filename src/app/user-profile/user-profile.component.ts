@@ -13,7 +13,7 @@ import { MovieGenreInfoComponent } from '../movie-genre-info/movie-genre-info.co
 })
 export class UserProfileComponent implements OnInit {
 
-  @Input() userFormValues = { Username: "", Email: "", Birthday: ""};
+  @Input() userFormValues = { Username: "", Password: "", Email: "", Birthday: "", FavoriteMovies: [] };
   userData: any = {};
   FavoriteMovies: any[] = [];
   movies: any[] = [];
@@ -45,21 +45,23 @@ export class UserProfileComponent implements OnInit {
         FavoriteMovies: this.userData.FavoriteMovies,
         token: this.userData.token
       };
+      this.userFormValues.Password = this.userData.Password;
+
       localStorage.setItem("user", JSON.stringify(this.userData));
     });
   }
 
   editUser(): void {
     this.fetchApiData.editUser(this.userData.Username, this.userFormValues).subscribe((resp: any) => {
-      this.userFormValues = {
-        ...resp,
-        Username: this.userFormValues.Username,
-        Email: this.userFormValues.Email,
-        Birthday: this.userFormValues.Birthday,
-        token: this.userData.token
-      };
-      localStorage.setItem("user", JSON.stringify(resp));
+      this.userFormValues.Username = this.userFormValues.Username;
+      this.userFormValues.Password = this.userData.Password;
+      this.userFormValues.Email = this.userFormValues.Email;
+      this.userFormValues.Birthday = this.userFormValues.Birthday;
+      this.userFormValues.FavoriteMovies = this.userData.FavoriteMovies;
+
+      localStorage.setItem("user", JSON.stringify(this.userFormValues));
       console.log(this.userFormValues);
+      console.log(resp);
     });
   }
 
