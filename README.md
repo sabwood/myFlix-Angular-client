@@ -2,6 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
+## Features
+
+- Welcome page with user registration and login
+- Displayed list of movies with accessible details about each movie, director, and genre
+- Button to add or remove movies from favorite movies list
+
+## Technical Requirements
+- Angular (version 9 or later)
+- Node.js and npm package (latest version)
+- Angular Material
+
+## Setup Instructions
+1. Clone the repository
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo-name>.git
+   ```
+2. Navigate into the project directory and install the necessary dependencies
+   ```bash
+   cd <your-repo-name>
+   npm install
+   ```
+3. Run the application locally.
+   ```bash
+   ng serve
+   ```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
