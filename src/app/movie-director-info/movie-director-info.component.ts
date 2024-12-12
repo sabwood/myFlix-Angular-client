@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+/**
+ * @summary Movie director information component to display director information.
+ * @class MovieDirectorInfoComponent
+ */
 @Component({
   selector: 'app-movie-director-info',
   templateUrl: './movie-director-info.component.html',
@@ -21,6 +25,9 @@ export class MovieDirectorInfoComponent implements OnInit {
     
   }
 
+  /**
+   * @summary Closes the open director dialog when the close button is clicked.
+   */
   closeDialog(): void {
     this.dialogRef.close();
   }

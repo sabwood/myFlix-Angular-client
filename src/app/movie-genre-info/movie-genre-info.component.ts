@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+/**
+ * @summary Movie genre information component to display genre information.
+ * @class MovieGenreInfoComponent
+ */
 @Component({
   selector: 'app-movie-genre-info',
   templateUrl: './movie-genre-info.component.html',
@@ -20,6 +24,9 @@ export class MovieGenreInfoComponent implements OnInit {
     
   }
 
+  /**
+   * @summary Closes the open genre dialog when the close button is clicked.
+   */
   closeDialog(): void {
     this.dialogRef.close();
   }

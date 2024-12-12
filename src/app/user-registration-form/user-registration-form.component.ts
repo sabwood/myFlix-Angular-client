@@ -3,6 +3,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * @summary User registration form component that provides a form to input new user details.
+ * @class UserRegistrationComponent
+ */
 @Component({
     selector: 'app-user-registration-form',
     templateUrl: './user-registration-form.component.html',
@@ -22,6 +26,9 @@ export class UserRegistrationFormComponent implements OnInit {
     
   }
 
+  /**
+   * @summary Function to register new user using UserRegistrationService.
+   */
   registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((response) => {
       this.dialogRef.close();

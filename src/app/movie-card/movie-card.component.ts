@@ -6,6 +6,10 @@ import { MovieDirectorInfoComponent } from '../movie-director-info/movie-directo
 import { MovieGenreInfoComponent } from '../movie-genre-info/movie-genre-info.component';
 import { MovieDescriptionInfoComponent } from '../movie-description-info/movie-description-info.component';
 
+/**
+ * @summary Movie card component to display a list of movies.
+ * @class MovieCardComponent
+ */
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
@@ -30,6 +34,9 @@ export class MovieCardComponent implements OnInit {
     this.getMovies();
   }
 
+  /**
+   * @summary Function to get list of all movies.
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -37,6 +44,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to add a movie to current users favorite movies list.
+   * @param movie 
+   */
   addFavoriteMovie(movie: any): void {
     const Username = this.userData.Username;
     this.fetchApiData.addFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
@@ -50,6 +61,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to remove a movie from current users favorite movies list.
+   * @param movie 
+   */
   removeFavoriteMovie(movie: any): void {
     const Username = this.userData.Username;
     this.fetchApiData.deleteFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
@@ -63,6 +78,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to check if a movie is in the current users favorite movies list.
+   * @param movie 
+   * @returns true if a movie on the current users favorite movies list, otherwise false.
+   */
   isFavorite(movie: any): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return (
@@ -71,6 +91,12 @@ export class MovieCardComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Opens director dialog when the director button is clicked.
+   * @param Name 
+   * @param Bio 
+   * @param Birth 
+   */
   openDirectorDialog(Name: string, Bio: string, Birth: string): void {
     this.dialog.open(MovieDirectorInfoComponent, {
       width: '600px',
@@ -82,6 +108,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Opens genre dialog when the genre button is clicked.
+   * @param Name 
+   * @param Description 
+   */
   openGenreDialog(Name: string, Description: string): void {
     this.dialog.open(MovieGenreInfoComponent, {
       width: '600px',
@@ -92,6 +123,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Opens description when the description button is clicked.
+   * @param Description 
+   */
   openDescriptionDialog(Description: string): void {
     this.dialog.open(MovieDescriptionInfoComponent, {
       width: '600px',

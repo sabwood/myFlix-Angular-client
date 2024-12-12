@@ -3,6 +3,10 @@ import { UserRegistrationFormComponent } from '../user-registration-form/user-re
 import { UserLoginFormComponent } from '../user-login-form/user-login-form.component';
 import { MatDialog } from '@angular/material/dialog';
 
+/**
+ * @summary Welcome page component that provides options for user registration and login.
+ * @class WelcomePageComponent
+ */
 @Component({
     selector: 'app-welcome-page',
     templateUrl: './welcome-page.component.html',
@@ -16,12 +20,18 @@ export class WelcomePageComponent implements OnInit {
     
   }
 
+  /**
+   * @summary Opens user registration dialog when the signup button is clicked.
+   */
   openUserRegistrationDialog(): void {
     this.dialog.open(UserRegistrationFormComponent, {
       width: '280px'
     });
   }
 
+  /**
+   * @summary Opens user login dialog when the login button is clicked.
+   */
   openUserLoginDialog(): void {
     this.dialog.open(UserLoginFormComponent, {
       width: '280px'

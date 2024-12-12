@@ -4,6 +4,10 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+/**
+ * @summary User login form component that provides a form to input user details.
+ * @class UserLoginFormComponent
+ */
 @Component({
   selector: 'app-user-login-form',
   templateUrl: './user-login-form.component.html',
@@ -23,6 +27,9 @@ export class UserLoginFormComponent implements OnInit {
     
   }
 
+  /**
+   * @summary Function to login user using UserRegistrationService.
+   */
   loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe((response) => {
       this.dialogRef.close();

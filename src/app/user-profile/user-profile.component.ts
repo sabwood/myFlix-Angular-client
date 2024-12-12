@@ -6,6 +6,10 @@ import { MovieDescriptionInfoComponent } from '../movie-description-info/movie-d
 import { MovieDirectorInfoComponent } from '../movie-director-info/movie-director-info.component';
 import { MovieGenreInfoComponent } from '../movie-genre-info/movie-genre-info.component';
 
+/**
+ * @summary User profile component to display and edit user profile information.
+ * @class UserProfileComponent
+ */
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -33,6 +37,9 @@ export class UserProfileComponent implements OnInit {
     this.getFavoriteMovies();
   }
 
+  /**
+   * @summary Function to get user information by user username.
+   */
   getUser(): void {
     this.fetchApiData.getUser(this.userData.Username).subscribe((resp: any) => {
       this.userData = {
@@ -51,6 +58,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to edit user information.
+   */
   editUser(): void {
     this.fetchApiData.editUser(this.userData.Username, this.userFormValues).subscribe((resp: any) => {
       this.userFormValues.Username = this.userFormValues.Username;
@@ -65,6 +75,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to get list of all movies.
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -72,6 +85,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to get current users favorite movies list.
+   */
   getFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.FavoriteMovies = resp.filter((movie: any) => {
@@ -83,6 +99,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to add a movie to current users favorite movies list.
+   * @param movie 
+   */
   addFavoriteMovie(movie: any): void {
     const Username = this.userData.Username;
     this.fetchApiData.addFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
@@ -96,6 +116,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to remove a movie from current users favorite movies list.
+   * @param movie 
+   */
   removeFavoriteMovie(movie: any): void {
     const Username = this.userData.Username;
     this.fetchApiData.deleteFavoriteMovie(Username, movie._id).subscribe((resp: any) => {
@@ -109,6 +133,11 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Function to check if a movie is in the current users favorite movies list.
+   * @param movie 
+   * @returns true if a movie on the current users favorite movies list, otherwise false.
+   */
   isFavorite(movie: any): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return (
@@ -117,6 +146,12 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
+  /**
+   * @summary Opens director dialog when the director button is clicked.
+   * @param Name 
+   * @param Bio 
+   * @param Birth 
+   */
   openDirectorDialog(Name: string, Bio: string, Birth: string): void {
     this.dialog.open(MovieDirectorInfoComponent, {
       width: '600px',
@@ -128,6 +163,11 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Opens genre dialog when the genre button is clicked.
+   * @param Name 
+   * @param Description 
+   */
   openGenreDialog(Name: string, Description: string): void {
     this.dialog.open(MovieGenreInfoComponent, {
       width: '600px',
@@ -138,6 +178,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * @summary Opens description when the description button is clicked.
+   * @param Description 
+   */
   openDescriptionDialog(Description: string): void {
     this.dialog.open(MovieDescriptionInfoComponent, {
       width: '600px',
