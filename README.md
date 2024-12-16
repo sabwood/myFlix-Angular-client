@@ -1,6 +1,6 @@
 # MyFlixAngularClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12. myFlix Angular is a single-page responsive Angular application made for movie enthusiasts to access and save information about different movies. This client-side application supports the existing server-side REST API and database.
 
 ## Features
 
