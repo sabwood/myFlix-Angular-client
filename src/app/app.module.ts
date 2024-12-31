@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Routes } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MovieDirectorInfoComponent } from './movie-director-info/movie-director-info.component';
 import { MovieGenreInfoComponent } from './movie-genre-info/movie-genre-info.component';
 import { MovieDescriptionInfoComponent } from './movie-description-info/movie-description-info.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
 
 const appRoutes: Routes = [
     { path: 'welcome', component: WelcomePageComponent },
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
         UserProfileComponent,
         MovieDirectorInfoComponent,
         MovieGenreInfoComponent,
-        MovieDescriptionInfoComponent
+        MovieDescriptionInfoComponent,
+        AppHeaderComponent
     ],
     imports: [
         AppRoutingModule,
@@ -55,7 +58,8 @@ const appRoutes: Routes = [
         MatButtonModule,
         MatCardModule,
         MatFormFieldModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatToolbarModule
     ],
     providers: [
         provideAnimations(),
